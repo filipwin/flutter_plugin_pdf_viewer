@@ -38,7 +38,7 @@ class PDFDocument {
 
     try {
       final filePathFixed = f.path.replaceAll(RegExp('; charset=.+'), '');
-      f.renameSync(filePathFixed);
+      if (f.existsSync()) f.renameSync(filePathFixed);
 
       document._filePath = filePathFixed;
       var pageCount = await _channel.invokeMethod('getNumberOfPages', {'filePath': filePathFixed});
